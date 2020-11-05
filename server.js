@@ -7,8 +7,15 @@ var cors        = require('cors');
 var apiRoutes         = require('./routes/api.js');
 var fccTestingRoutes  = require('./routes/fcctesting.js');
 var runner            = require('./test-runner');
+var helmet            = require('helmet');
 
 var app = express();
+
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('X-Powered-By', 'PHP 4.2.0');
+  next();
+})
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
